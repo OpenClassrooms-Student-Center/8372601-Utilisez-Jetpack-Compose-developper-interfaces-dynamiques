@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BestPodcastTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // TODO innerPadding à gérer plus tard
-                    PodcastItem(title = "Nouvel oeil - Interview", status = DownloadStatus.Downloaded)
+                    PodcastItem(title = "Nouvel oeil - Interview", status = DownloadStatus.Downloaded, onDownloadClicked = { /* TODO */ })
                 }
             }
         }
