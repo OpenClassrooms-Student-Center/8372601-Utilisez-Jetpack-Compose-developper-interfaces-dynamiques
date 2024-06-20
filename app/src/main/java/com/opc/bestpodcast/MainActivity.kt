@@ -8,7 +8,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.opc.bestpodcast.ui.DownloadStatus
+import com.opc.bestpodcast.data.factory.PodcastFactory
+import com.opc.bestpodcast.data.model.DownloadStatus
 import com.opc.bestpodcast.ui.PodcastItem
 import com.opc.bestpodcast.ui.theme.BestPodcastTheme
 
@@ -20,7 +21,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             BestPodcastTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding -> // TODO innerPadding à gérer plus tard
-                    PodcastItem(title = "Nouvel oeil - Interview", status = DownloadStatus.Downloaded, onDownloadClicked = { /* TODO */ })
+                    PodcastItem(
+                        podcast = PodcastFactory.makePodcasts()[10].copy(downloadStatus = DownloadStatus.Online),
+                        onDownloadClicked = {},
+                    )
                 }
             }
         }

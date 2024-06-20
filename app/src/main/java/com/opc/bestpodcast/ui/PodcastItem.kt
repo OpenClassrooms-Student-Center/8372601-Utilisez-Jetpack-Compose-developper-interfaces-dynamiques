@@ -11,30 +11,26 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-
-enum class DownloadStatus {
-    Online,
-    InProgress,
-    Downloaded,
-}
+import com.opc.bestpodcast.data.factory.PodcastFactory
+import com.opc.bestpodcast.data.model.DownloadStatus
+import com.opc.bestpodcast.data.model.Podcast
 
 @Composable
 fun PodcastItem(
-    title: String,
-    status: DownloadStatus,
+    podcast: Podcast,
     onDownloadClicked: () -> Unit,
 ) {
     Row {
         Text(
-            text = title,
+            text = podcast.title,
             modifier = Modifier.weight(1f), // pour corriger le problème d'accessibilité avec un zoom à 200 %
         )
-        when (status) {
+        when (podcast.downloadStatus) {
             DownloadStatus.Online ->
                 IconButton(onClick = onDownloadClicked) {
                     Icon(
                         imageVector = Icons.Default.Download,
-                        contentDescription = "Télécharger $title",
+                        contentDescription = "Télécharger ${podcast.title}",
                     )
                 }
             DownloadStatus.InProgress ->
@@ -55,8 +51,7 @@ fun PodcastItem(
 @Composable
 fun PreviewPodcastItemOnline() {
     PodcastItem(
-        title = "Interview de Jean-Marc Jancovici",
-        status = DownloadStatus.Online,
+        podcast = PodcastFactory.makePodcasts()[0].copy(downloadStatus = DownloadStatus.Online),
         onDownloadClicked = {},
     )
 }
@@ -65,8 +60,7 @@ fun PreviewPodcastItemOnline() {
 @Composable
 fun PreviewPodcastItemInProgress() {
     PodcastItem(
-        title = "Interview de Jean-Marc Jancovici",
-        status = DownloadStatus.InProgress,
+        podcast = PodcastFactory.makePodcasts()[0].copy(downloadStatus = DownloadStatus.InProgress),
         onDownloadClicked = {},
     )
 }
@@ -75,8 +69,7 @@ fun PreviewPodcastItemInProgress() {
 @Composable
 fun PreviewPodcastItemDownloaded() {
     PodcastItem(
-        title = "Interview de Jean-Marc Jancovici",
-        status = DownloadStatus.Downloaded,
+        podcast = PodcastFactory.makePodcasts()[0].copy(downloadStatus = DownloadStatus.Downloaded),
         onDownloadClicked = {},
     )
 }
