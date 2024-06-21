@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BestPodcast</string>
+    <string name="rechercher_un_podcast">Rechercher un podcast</string>
 </resources>

@@ -2,8 +2,10 @@ package com.opc.bestpodcast.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
@@ -17,8 +19,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.opc.bestpodcast.R
 import com.opc.bestpodcast.data.factory.PodcastFactory
 import com.opc.bestpodcast.data.model.DownloadStatus
 import com.opc.bestpodcast.data.model.Podcast
@@ -29,6 +34,12 @@ fun PodcastItem(
     onDownloadClicked: () -> Unit,
 ) {
     Row {
+        AsyncImage(
+            model = podcast.logoUrl,
+            contentDescription = null,
+            placeholder = painterResource(id = R.drawable.placeholder),
+            modifier = Modifier.size(64.dp),
+        )
         Text(
             text = podcast.title,
             modifier = Modifier.weight(1f), // pour corriger le problème d'accessibilité avec un zoom à 200 %
