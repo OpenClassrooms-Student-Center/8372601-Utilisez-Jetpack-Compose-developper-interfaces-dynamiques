@@ -43,7 +43,9 @@ fun PodcastItem(
             model = podcast.logoUrl,
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.placeholder),
-            modifier = Modifier.size(64.dp).clip(MaterialTheme.shapes.small),
+            modifier = Modifier
+                .size(64.dp)
+                .clip(MaterialTheme.shapes.small),
         )
         Text(
             text = podcast.title,
@@ -58,18 +60,19 @@ fun PodcastItem(
                         imageVector = Icons.Default.Download,
                         contentDescription = "Télécharger ${podcast.title}",
                         modifier =
-                            Modifier
-                                .clip(CircleShape)
-                                .background(MaterialTheme.colorScheme.surfaceVariant)
-                                .border(
-                                    width = 2.dp,
-                                    color = MaterialTheme.colorScheme.primary,
-                                    shape = CircleShape,
-                                )
-                                .padding(4.dp),
+                        Modifier
+                            .clip(CircleShape)
+                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .border(
+                                width = 2.dp,
+                                color = MaterialTheme.colorScheme.primary,
+                                shape = CircleShape,
+                            )
+                            .padding(4.dp),
                         tint = MaterialTheme.colorScheme.primary,
                     )
                 }
+
             DownloadStatus.InProgress ->
                 Icon(
                     imageVector = Icons.Default.Downloading,
@@ -77,6 +80,7 @@ fun PodcastItem(
                     modifier = Modifier.padding(12.dp),
                     tint = MaterialTheme.colorScheme.primary,
                 )
+
             DownloadStatus.Downloaded ->
                 Icon(
                     imageVector = Icons.Default.DownloadDone,
