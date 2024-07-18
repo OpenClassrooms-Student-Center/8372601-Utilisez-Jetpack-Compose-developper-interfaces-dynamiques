@@ -84,4 +84,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.coil.compose)
+
+    implementation(libs.androidx.ui.text.google.fonts)
 }
