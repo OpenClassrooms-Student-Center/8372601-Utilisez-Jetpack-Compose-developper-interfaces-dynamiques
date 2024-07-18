@@ -29,19 +29,19 @@ fun HighlightedLogo(
             painter = painterResource(id = R.drawable.soundwave),
             contentDescription = contentDescription,
             colorFilter =
-            ColorFilter.tint(
-                color = MaterialTheme.colorScheme.primary,
-            ),
+                ColorFilter.tint(
+                    color = MaterialTheme.colorScheme.primary,
+                ),
         )
         AsyncImage(
             model = logoUrl,
             contentDescription = null,
             placeholder = painterResource(id = R.drawable.placeholder),
             modifier =
-            Modifier
-                .fillMaxWidth(fraction = 0.6f)
-                .aspectRatio(1f)
-                .padding(8.dp),
+                Modifier
+                    .fillMaxWidth(fraction = 0.6f)
+                    .aspectRatio(1f)
+                    .padding(8.dp),
         )
     }
 }
