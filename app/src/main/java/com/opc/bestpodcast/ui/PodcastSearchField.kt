@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.opc.bestpodcast.R
 
 @Composable
-fun PodcastSearchField() {
+fun PodcastSearchField(modifier: Modifier = Modifier) {
     val filterText = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
     OutlinedTextField(
@@ -26,7 +26,7 @@ fun PodcastSearchField() {
             filterText.value = it
         },
         modifier =
-            Modifier
+            modifier
                 .fillMaxWidth()
                 .padding(4.dp),
         label = {

@@ -9,11 +9,13 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.DownloadDone
 import androidx.compose.material.icons.filled.Downloading
+import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -24,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,9 +40,10 @@ import com.opc.bestpodcast.ui.theme.BestPodcastTheme
 fun PodcastItem(
     podcast: Podcast,
     onDownloadClicked: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Row(
-        modifier = Modifier.background(
+        modifier = modifier.background(
             color = MaterialTheme.colorScheme.surface,
             shape = MaterialTheme.shapes.small
         ),
@@ -49,39 +51,45 @@ fun PodcastItem(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         Box(
-            contentAlignment = Alignment.Center,
+            contentAlignment = Alignment.BottomEnd,
         ) {
             AsyncImage(
                 model = podcast.logoUrl,
                 contentDescription = null,
                 placeholder = painterResource(id = R.drawable.placeholder),
                 modifier =
-                    Modifier
-                        .size(64.dp)
-                        .clip(MaterialTheme.shapes.small),
+                Modifier
+                    .size(64.dp)
+                    .clip(MaterialTheme.shapes.small),
             )
-            IconButton(onClick = { /*TODO*/ }) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Ajouter ${podcast.title} à ma bibliothèque",
-                    modifier =
-                        Modifier
-                            .size(64.dp)
-                            .background(
-                                brush =
-                                    Brush.linearGradient(
-                                        colors =
-                                            listOf(
-                                                MaterialTheme.colorScheme.secondary,
-                                                MaterialTheme.colorScheme.primary,
-                                                MaterialTheme.colorScheme.tertiaryContainer,
-                                            ),
-                                    ),
-                                alpha = 0.9f,
+            Icon(
+                imageVector = Icons.Default.Podcasts,
+                contentDescription = null,
+                modifier =
+                Modifier
+                    .size(24.dp)
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = CornerSize(0.dp),
+                            topEnd = CornerSize(0.dp),
+                            bottomEnd = MaterialTheme.shapes.small.bottomEnd,
+                            bottomStart = CornerSize(0.dp)
+                        )
+                    )
+                    .background(
+                        brush =
+                        Brush.linearGradient(
+                            colors =
+                            listOf(
+                                MaterialTheme.colorScheme.secondary,
+                                MaterialTheme.colorScheme.primary,
+                                MaterialTheme.colorScheme.tertiaryContainer,
                             ),
-                    tint = MaterialTheme.colorScheme.onPrimary,
-                )
-            }
+                        ),
+                        alpha = 0.9f,
+                    ),
+                tint = MaterialTheme.colorScheme.onPrimary,
+            )
         }
 
         Column(

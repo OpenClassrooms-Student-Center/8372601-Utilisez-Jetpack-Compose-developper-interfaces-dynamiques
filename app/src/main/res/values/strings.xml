@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">BestPodcast</string>
     <string name="rechercher_un_podcast">Rechercher un podcast</string>
+    <string name="best_podcasts">Best Podcasts</string>
+    <string name="cd_jump_to_first_podcast_in_list">Remonter au premier podcast de la liste</string>
+    <string name="cd_ajouter_aux_favoris">Ajouter %1$s aux favoris</string>
+    <string name="cd_ajouter_ma_biblioth_que">Ajouter %1$s à ma bibliothèque</string>
+    <string name="cd_en_savoir_plus">En savoir plus</string>
 </resources>
