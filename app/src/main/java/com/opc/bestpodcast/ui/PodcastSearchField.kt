@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,18 +16,18 @@ import androidx.compose.ui.unit.dp
 import com.opc.bestpodcast.R
 
 @Composable
-fun PodcastSearchField(modifier: Modifier = Modifier) {
-    val filterText = remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
+fun PodcastSearchField(
+    searchValue: String,
+    onSearchValueChanged: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
     OutlinedTextField(
-        value = filterText.value,
-        onValueChange = {
-            filterText.value = it
-        },
+        value = searchValue,
+        onValueChange = onSearchValueChanged,
         modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(4.dp),
+        modifier
+            .fillMaxWidth()
+            .padding(4.dp),
         label = {
             Text(stringResource(R.string.rechercher_un_podcast))
         },
@@ -39,5 +38,11 @@ fun PodcastSearchField(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun PreviewPodcastSearchField() {
-    PodcastSearchField()
+    val searchValue = remember { mutableStateOf("") }
+    PodcastSearchField(
+        searchValue = searchValue.value,
+        onSearchValueChanged = {
+            searchValue.value = it
+        }
+    )
 }

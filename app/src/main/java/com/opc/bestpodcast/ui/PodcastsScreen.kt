@@ -27,17 +27,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.opc.bestpodcast.R
-import com.opc.bestpodcast.data.factory.PodcastFactory
 import com.opc.bestpodcast.ui.theme.BestPodcastTheme
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PodcastsScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: PodcastsViewModel = viewModel()
 ) {
-    val podcasts = remember { PodcastFactory.makePodcasts() }
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -74,12 +76,17 @@ fun PodcastsScreen(
                 state = listState
             ) {
                 item {
-                    PodcastSearchField()
+                    PodcastSearchField(
+                        searchValue = uiState.value.searchValue,
+                        onSearchValueChanged = {
+                            viewModel.onSearchValueChanged(it)
+                        }
+                    )
                 }
-                items(podcasts) { podcast ->
+                items(uiState.value.podcasts) { podcast ->
                     PodcastItem(
                         podcast = podcast,
-                        onDownloadClicked = { /* TODO */ },
+                        onDownloadClicked = {viewModel.onDownloadClicked(podcast.id) },
                     )
                 }
             }
