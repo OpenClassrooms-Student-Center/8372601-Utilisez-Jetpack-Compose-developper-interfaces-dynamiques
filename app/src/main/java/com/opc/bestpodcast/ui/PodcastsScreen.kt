@@ -1,6 +1,7 @@
 package com.opc.bestpodcast.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,6 +12,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowUpward
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -20,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -39,7 +42,10 @@ fun PodcastsScreen(
     modifier: Modifier = Modifier,
     viewModel: PodcastsViewModel = viewModel()
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
+    val scope = rememberCoroutineScope()
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -48,7 +54,12 @@ fun PodcastsScreen(
                     Text(
                         text = stringResource(R.string.best_podcasts),
                         style = MaterialTheme.typography.headlineLarge,
-                        color = MaterialTheme.colorScheme.primary
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.clickable {
+                            scope.launch {
+                                listState.animateScrollToItem(0)
+                            }
+                        }
                     )
                 }
             )
@@ -59,10 +70,9 @@ fun PodcastsScreen(
             modifier = Modifier
                 .padding(innerPadding)
         ) {
-            val listState = rememberLazyListState()
-            val scope = rememberCoroutineScope()
-            val jumpToFirstPodcastVisible =
-                remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
+            val jumpToFirstPodcastVisible by remember {
+                derivedStateOf { listState.firstVisibleItemIndex > 0 }
+            }
             LazyColumn(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.primaryContainer),
@@ -77,20 +87,20 @@ fun PodcastsScreen(
             ) {
                 item {
                     PodcastSearchField(
-                        searchValue = uiState.value.searchValue,
+                        searchValue = uiState.searchValue,
                         onSearchValueChanged = {
                             viewModel.onSearchValueChanged(it)
                         }
                     )
                 }
-                items(uiState.value.podcasts) { podcast ->
+                items(uiState.podcasts) { podcast ->
                     PodcastItem(
                         podcast = podcast,
-                        onDownloadClicked = {viewModel.onDownloadClicked(podcast.id) },
+                        onDownloadClicked = { viewModel.onDownloadClicked(podcast.id) },
                     )
                 }
             }
-            if (jumpToFirstPodcastVisible.value) {
+            if (jumpToFirstPodcastVisible) {
                 FloatingActionButton(
                     onClick = {
                         scope.launch {
