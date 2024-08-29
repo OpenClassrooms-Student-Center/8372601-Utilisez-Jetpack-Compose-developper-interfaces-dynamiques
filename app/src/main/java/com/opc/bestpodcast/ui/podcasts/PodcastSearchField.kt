@@ -1,4 +1,4 @@
-package com.opc.bestpodcast.ui
+package com.opc.bestpodcast.ui.podcasts
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding

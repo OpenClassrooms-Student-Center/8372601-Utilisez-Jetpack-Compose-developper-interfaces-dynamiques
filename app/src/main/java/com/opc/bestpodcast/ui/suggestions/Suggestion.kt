@@ -1,4 +1,4 @@
-package com.opc.bestpodcast.ui
+package com.opc.bestpodcast.ui.suggestions
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

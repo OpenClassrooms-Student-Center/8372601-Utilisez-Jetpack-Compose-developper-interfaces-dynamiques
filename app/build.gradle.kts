@@ -72,6 +72,8 @@ dependencies {
     // Facultatif : Intégration avec les viewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
 
     // BOM Compose pour les test UI
     androidTestImplementation(platform(libs.androidx.compose.bom))

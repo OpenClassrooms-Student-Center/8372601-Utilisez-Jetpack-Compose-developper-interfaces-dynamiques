@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.material3.ExperimentalMaterial3Api
-import com.opc.bestpodcast.ui.PodcastsScreen
+import com.opc.bestpodcast.ui.MainScreen
 import com.opc.bestpodcast.ui.theme.BestPodcastTheme
 
 class MainActivity : ComponentActivity() {
@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BestPodcastTheme {
-                PodcastsScreen()
+                MainScreen()
             }
         }
     }

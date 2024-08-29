@@ -1,5 +1,6 @@
-package com.opc.bestpodcast.ui
+package com.opc.bestpodcast.ui.podcasts
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.opc.bestpodcast.data.factory.PodcastFactory
@@ -66,5 +67,15 @@ class PodcastsViewModel() : ViewModel() {
                 podcasts = podcastsInDatabase
             )
         }
+    }
+
+    fun startTimer() {
+        // TODO appeler ici l'outil d'analytics
+        Log.d("BestPodcast", "START viewing PodcastsScreen")
+    }
+
+    fun stopTimer() {
+        // TODO appeler ici l'outil d'analytics
+        Log.d("BestPodcast", "STOP viewing PodcastsScreen")
     }
 }
